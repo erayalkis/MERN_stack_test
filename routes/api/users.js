@@ -4,7 +4,7 @@ const User = require("../../models/User");
 const router = express.Router();
 
 router.get("/test", (req, res) => res.send("This is the users route!"));
-router.get("/register", (req, res) => {
+router.post("/register", (req, res) => {
   User.findOne({email: req.body.email})
   .then(user => {
     if(user) {

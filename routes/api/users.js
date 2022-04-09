@@ -36,7 +36,12 @@ router.post("/login", (req, res) => {
     .then(user => {
       if(!user) return res.status(404).json({email: 'This email is not registered to a user!'})
 
-      WaveShaperNode
+      bcrypt.compare(req.body.password, user.password)
+        .then(isMatch => {
+          if(!isMatch) return res.status(400).json({password: 'Password is incorrect'})
+
+          res.json({msg: 'Success!'});
+        })
     })
 })
 

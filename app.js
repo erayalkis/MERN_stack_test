@@ -1,8 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 const dbURI = require("./config/keys").mongoURI;
 const users = require("./routes/api/users");
 const tweets = require("./routes/api/tweets");
+
 const app = express();
 
 const PORT = process.env.port || 5000;
@@ -17,5 +19,7 @@ try {
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 
 app.get("/", (req, res) => res.send("Hello, World!"));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use("/api/users", users);
 app.use("/api/tweets", tweets);

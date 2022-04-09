@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const passport = require("passport");
+require('./config/passport')(passport);
 const dbURI = require("./config/keys").mongoURI;
 const users = require("./routes/api/users");
 const tweets = require("./routes/api/tweets");
@@ -21,5 +23,6 @@ app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 app.get("/", (req, res) => res.send("Hello, World!"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(passport.initialize());
 app.use("/api/users", users);
 app.use("/api/tweets", tweets);

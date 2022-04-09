@@ -1,11 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const users = require("./routes/api/users");
+const tweets = require("./routes/api/tweets");
 const passport = require("passport");
 require('./config/passport')(passport);
 const dbURI = require("./config/keys").mongoURI;
-const users = require("./routes/api/users");
-const tweets = require("./routes/api/tweets");
+
 
 const app = express();
 

@@ -7,7 +7,6 @@ const passport = require("passport");
 require('./config/passport')(passport);
 const dbURI = require("./config/keys").mongoURI;
 
-
 const app = express();
 
 const PORT = process.env.port || 5000;

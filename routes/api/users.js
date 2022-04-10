@@ -4,11 +4,19 @@ const jwt = require("jsonwebtoken");
 const passport = require('passport');
 const secret = require("../../config/keys").secret;
 const User = require("../../models/User");
+const validateRegisterInput = require("../../validations/register");
+const validateLoginInput = require("../../validations/login");
 const router = express.Router();
 
 router.get("/test", (req, res) => res.send("This is the users route!"));
 
 router.post("/register", (req, res) => {
+  const { errors, isValid } = validateRegisterInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   User.findOne({email: req.body.email})
   .then(user => {
     if(user) {
@@ -35,6 +43,12 @@ router.post("/register", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   User.findOne({email: req.body.email})
     .then(user => {
       if(!user) return res.status(404).json({email: 'This email is not registered to a user!'})

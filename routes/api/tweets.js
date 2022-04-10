@@ -28,7 +28,7 @@ router.get('/:id', (req, res) => {
     );
 });
 
-router.post('/',passport.authenticate('jwt', { session: false }), (req, res) => {
+router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
   const { errors, isValid } = validateTweetInput(req.body); 
 
   if (!isValid) {
@@ -43,3 +43,5 @@ router.post('/',passport.authenticate('jwt', { session: false }), (req, res) => 
   newTweet.save().then(tweet => res.json(tweet));
 }
 );
+
+module.exports = router;
